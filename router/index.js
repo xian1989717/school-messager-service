@@ -1,15 +1,5 @@
-const Router = require('@koa/router')
+const { teacherRouter } = require('./teacher')
 
-const router = new Router()
-
-const {
-  addTeacher,
-  selectTeacherAll
-} = require('../service/teacher/index.js')
-
-router
-  // 教师模块
-  .post('/teacher/add', addTeacher)
-  .get('/teacher/all', selectTeacherAll)
-
-module.exports = router
+module.exports = {
+  teacherRouter
+}

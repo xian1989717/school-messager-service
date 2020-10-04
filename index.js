@@ -1,13 +1,14 @@
 const Koa = require('koa')
-const router = require('./router/index')
+const {
+  teacherRouter
+} = require('./router/index')
 
 const app = new Koa()
 
-
 app
-  .use(router.routes())
-  .use(router.allowedMethods())
+  .use(teacherRouter.routes())
+  .use(teacherRouter.allowedMethods())
 
 app.listen(3000, () => {
-  console.log('service is running!')
+  console.log('service is running!post is 3000')
 })
