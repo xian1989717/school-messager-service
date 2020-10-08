@@ -1,7 +1,10 @@
 const { query } = require('../../mysql.config')
 const { teacher } = require('../../model/index.js')
 
-const { selectTeacherAllSql } = require('../../sql/index')
+const {
+  selectTeacherAllSql,
+  selectTeacherByIdSql
+} = require('../../sql/index')
 
 module.exports = {
   addTeacher (ctx) {
@@ -9,5 +12,12 @@ module.exports = {
   },
   async selectTeacherAll (ctx) {
     ctx.body = await query(selectTeacherAllSql)
+  },
+  async selectTeacherOne (ctx) {
+    ctx.body = await query(selectTeacherByIdSql, {
+      replace: {
+
+      }
+    })
   }
 }
