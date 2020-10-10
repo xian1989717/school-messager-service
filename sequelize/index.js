@@ -7,6 +7,10 @@ const sequelize = new Sequelize('school', 'root', 'root', {
     max: 5,
     min: 0,
     idle: 10000
+  },
+  define: {
+    freezeTableName: true,
+    timestamps: false
   }
 })
 
