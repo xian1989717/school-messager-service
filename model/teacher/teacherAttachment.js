@@ -23,15 +23,17 @@ const teacherAttachment = ormDb.define(
     },
     uploadTime: {
       type: DataTypes.TIME,
-      allowNull: false
+      allowNull: false,
+      field: 'upload_time'
     },
     remark: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
     isRemoved: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      field: 'is_removed'
     }
   }
 )

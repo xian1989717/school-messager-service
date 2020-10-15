@@ -6,7 +6,9 @@ const {
   addTeacher,
   selectTeacherAll,
   selectTeacherOne,
-  selectTeachSubjectAll
+  selectTeachSubjectAll,
+  selectTeacherAttachment,
+  addTeacherAttachment
 } = require('../../service/index.js')
 
 router
@@ -15,6 +17,8 @@ router
   .get('/teacher', selectTeacherAll)
   .get(`/teacher/:id`, selectTeacherOne)
   .get(`/teachSubject`, selectTeachSubjectAll)
+  .get(`/teacher/attachment/:id`, selectTeacherAttachment)
+  .post(`/teacher/attachment/:id`, addTeacherAttachment)
 
 module.exports = {
   teacherRouter: router

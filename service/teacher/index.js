@@ -1,7 +1,8 @@
-// const formidable = require('formidable')
+const fs = require('fs')
+const formidable = require('formidable')
 
 const { query } = require('../../mysql.config')
-const { teacher, teachSubject } = require('../../model/index.js')
+const { teacher, teachSubject, teacherAttachment } = require('../../model/index.js')
 
 const {
   selectTeacherAllSql,
@@ -40,10 +41,50 @@ async function selectTeachSubjectAll (ctx) {
   })
 }
 
+async function selectTeacherAttachment (ctx) {
+  ctx.body = await teacherAttachment.findAll({
+    attributes: ['id', 'name', 'size', 'uploadTime', 'remark'],
+    where: {
+      isRemoved: false,
+      teacherId: ctx.params.id
+    }
+  })
+}
+
+async function addTeacherAttachment (ctx) {
+  const form = formidable({ multiples: true })
+  form.uploadDir = 'public/imgs/'
+
+  await new Promise((resolve, reject) => {
+    form.parse(ctx.req, async (err, fields, files) => {
+      if (err) {
+        reject(err)
+        return
+      }
+      const { size, name, lastModifiedDate, path } = files.img
+      const formatSize = (size / 1000).toFixed(2) + 'kb'
+      fs.renameSync(path, './public/imgs/' + name)
+      const res = await teacherAttachment.create({
+        teacherId: ctx.params.id,
+        name,
+        size: formatSize,
+        uploadTime: lastModifiedDate,
+        remark: null,
+        isRemoved: false
+      })
+      if (res) {
+        ctx.body = true
+        resolve()
+      }
+    })
+  })
+}
 
 module.exports = {
   addTeacher,
   selectTeacherAll,
   selectTeacherOne,
-  selectTeachSubjectAll
+  selectTeachSubjectAll,
+  selectTeacherAttachment,
+  addTeacherAttachment
 }
