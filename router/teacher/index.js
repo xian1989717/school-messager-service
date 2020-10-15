@@ -11,10 +11,10 @@ const {
 
 router
   // 教师模块
-  .post('/teacher/add', addTeacher)
-  .get('/teacher/all', selectTeacherAll)
+  .post('/teacher', addTeacher)
+  .get('/teacher', selectTeacherAll)
   .get(`/teacher/:id`, selectTeacherOne)
-  .get(`/teachSubject/all`, selectTeachSubjectAll)
+  .get(`/teachSubject`, selectTeachSubjectAll)
 
 module.exports = {
   teacherRouter: router

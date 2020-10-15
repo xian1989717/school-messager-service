@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize')
-const { ormDb } = require('../sequelize/index')
+const { ormDb } = require('../../sequelize/index')
 
 const teachSubject = ormDb.define(
   'teach_subject',

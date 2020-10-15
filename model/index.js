@@ -1,7 +1,5 @@
-const teacher = require('./teacher.js')
-const teachSubject = require('./teachSubject.js')
+const teacher = require('./teacher')
 
 module.exports = {
-  teacher,
-  teachSubject
+  ...teacher
 }

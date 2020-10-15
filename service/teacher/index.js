@@ -1,4 +1,4 @@
-const formidable = require('formidable')
+// const formidable = require('formidable')
 
 const { query } = require('../../mysql.config')
 const { teacher, teachSubject } = require('../../model/index.js')
@@ -9,21 +9,15 @@ const {
 } = require('../../sql/index')
 
 async function addTeacher (ctx) {
-  const form = new formidable.IncomingForm()
-
-  await new Promise((resolve, reject) => {
-    form.parse(ctx.req, async (err, fields, files) => {
-      if (err) {
-        reject(err)
-        return
-      }
-      const res = await teacher.create(Object.assign(fields, { isRemoved: false }))
-      if (res) {
-        ctx.body = true
-        resolve()
-      }
-    })
-  })
+  const res = await teacher.create(
+    Object.assign(
+      ctx.request.body,
+      { isRemoved: false }
+    )
+  )
+  if (res) {
+    ctx.body = true
+  }
 }
 async function selectTeacherAll (ctx) {
   ctx.body = await query(selectTeacherAllSql)

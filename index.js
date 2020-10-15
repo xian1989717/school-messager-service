@@ -5,6 +5,9 @@ const {
 
 const app = new Koa()
 
+const bodyParser = require('koa-bodyparser')
+
+app.use(bodyParser())
 app
   .use(teacherRouter.routes())
   .use(teacherRouter.allowedMethods())
