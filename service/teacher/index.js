@@ -1,5 +1,6 @@
 const fs = require('fs')
 const formidable = require('formidable')
+const send = require('koa-send')
 
 const { query } = require('../../mysql.config')
 const { teacher, teachSubject, teacherAttachment } = require('../../model/index.js')
@@ -66,11 +67,12 @@ async function addTeacherAttachment (ctx) {
       fs.renameSync(path, './public/imgs/teacher/' + name)
       const res = await teacherAttachment.create({
         teacherId: ctx.params.id,
+        isRemoved: false,
         name,
-        size: formatSize,
-        uploadTime: lastModifiedDate,
         remark: null,
-        isRemoved: false
+        size: formatSize,
+        attachmentKey: name,
+        uploadTime: lastModifiedDate
       })
       if (res) {
         ctx.body = true
@@ -95,6 +97,20 @@ async function updateTeacherAttachment (ctx) {
   }
 }
 
+async function downLoadTeacherAttachment (ctx) {
+  const id = ctx.params.id
+  const data = await teacherAttachment.findAll({
+    attributes: ['attachmentKey'],
+    where: {
+      id,
+      isRemoved: false
+    }
+  })
+  const path = `public/imgs/teacher/${data[0].dataValues.attachmentKey}`
+  ctx.attachment(path)
+  await send(ctx, path)
+}
+
 module.exports = {
   addTeacher,
   selectTeacherAll,
@@ -102,5 +118,6 @@ module.exports = {
   selectTeachSubjectAll,
   selectTeacherAttachment,
   addTeacherAttachment,
-  updateTeacherAttachment
+  updateTeacherAttachment,
+  downLoadTeacherAttachment
 }

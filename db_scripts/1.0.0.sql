@@ -42,3 +42,4 @@ create table teacher_attachment(
 
 alter table teacher_attachment add column attachment_key text(50);
 alter table teacher_attachment modify name text(50);
+
