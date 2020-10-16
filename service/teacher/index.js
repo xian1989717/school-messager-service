@@ -63,7 +63,7 @@ async function addTeacherAttachment (ctx) {
       }
       const { size, name, lastModifiedDate, path } = files.img
       const formatSize = (size / 1000).toFixed(2) + 'kb'
-      fs.renameSync(path, './public/imgs/' + name)
+      fs.renameSync(path, './public/imgs/teacher/' + name)
       const res = await teacherAttachment.create({
         teacherId: ctx.params.id,
         name,
@@ -80,11 +80,27 @@ async function addTeacherAttachment (ctx) {
   })
 }
 
+async function updateTeacherAttachment (ctx) {
+  const { teacherId, id } = ctx.params
+  const { body } = ctx.request
+  const res = await teacherAttachment.update(body, {
+    where: {
+      id,
+      teacherId,
+      isRemoved: false
+    }
+  })
+  if (res) {
+    ctx.body = true
+  }
+}
+
 module.exports = {
   addTeacher,
   selectTeacherAll,
   selectTeacherOne,
   selectTeachSubjectAll,
   selectTeacherAttachment,
-  addTeacherAttachment
+  addTeacherAttachment,
+  updateTeacherAttachment
 }

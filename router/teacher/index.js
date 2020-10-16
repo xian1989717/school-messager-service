@@ -8,7 +8,8 @@ const {
   selectTeacherOne,
   selectTeachSubjectAll,
   selectTeacherAttachment,
-  addTeacherAttachment
+  addTeacherAttachment,
+  updateTeacherAttachment
 } = require('../../service/index.js')
 
 router
@@ -19,6 +20,7 @@ router
   .get(`/teachSubject`, selectTeachSubjectAll)
   .get(`/teacher/attachment/:id`, selectTeacherAttachment)
   .post(`/teacher/attachment/:id`, addTeacherAttachment)
+  .put('/teacher/:teacherId/attachment/:id', updateTeacherAttachment)
 
 module.exports = {
   teacherRouter: router

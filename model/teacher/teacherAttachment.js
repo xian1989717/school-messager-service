@@ -14,7 +14,7 @@ const teacherAttachment = ormDb.define(
       field: 'teacher_id'
     },
     name: {
-      type: DataTypes.TEXT(20),
+      type: DataTypes.TEXT(50),
       allowNull: false
     },
     size: {
@@ -34,6 +34,11 @@ const teacherAttachment = ormDb.define(
       type: DataTypes.BOOLEAN,
       allowNull: false,
       field: 'is_removed'
+    },
+    attachmentKey: {
+      type: DataTypes.TEXT(50),
+      allowNull: false,
+      field: 'attachment_key'
     }
   }
 )
