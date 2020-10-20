@@ -6,11 +6,12 @@ const {
   addTeacher,
   selectTeacherAll,
   selectTeacherOne,
+  deleteTeacher,
   selectTeachSubjectAll,
   selectTeacherAttachment,
   addTeacherAttachment,
   updateTeacherAttachment,
-  downLoadTeacherAttachment
+  downLoadTeacherAttachment,
 } = require('../../service/index.js')
 
 router
@@ -18,6 +19,7 @@ router
   .post('/teacher', addTeacher)
   .get('/teacher', selectTeacherAll)
   .get(`/teacher/:id`, selectTeacherOne)
+  .delete('/teacher/:id', deleteTeacher)
   .get(`/teachSubject`, selectTeachSubjectAll)
   .get(`/teacher/attachment/:id`, selectTeacherAttachment)
   .post(`/teacher/attachment/:id`, addTeacherAttachment)

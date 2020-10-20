@@ -18,7 +18,10 @@ async function addTeacher (ctx) {
     )
   )
   if (res) {
-    ctx.body = true
+    ctx.body = {
+      id: ctx.request.body.id,
+      state: true
+    }
   }
 }
 async function selectTeacherAll (ctx) {
@@ -31,6 +34,23 @@ async function selectTeacherOne (ctx) {
       id: 1
     }
   })
+}
+
+async function deleteTeacher (ctx) {
+  const { id } = ctx.params
+  const res = await teacher.update(
+    {
+      isRemoved: true
+    },
+    {
+      where: {
+        id
+      }
+    }
+  )
+  if (res.length === 1) {
+    ctx.body = true
+  }
 }
 
 async function selectTeachSubjectAll (ctx) {
@@ -115,6 +135,7 @@ module.exports = {
   addTeacher,
   selectTeacherAll,
   selectTeacherOne,
+  deleteTeacher,
   selectTeachSubjectAll,
   selectTeacherAttachment,
   addTeacherAttachment,

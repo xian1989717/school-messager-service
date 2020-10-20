@@ -1,5 +1,6 @@
 const selectTeacherAllSql = `
   select
+    t.id,
     t.name,
     t.age,
     t.positional_titles positionalTitles,
@@ -8,7 +9,7 @@ const selectTeacherAllSql = `
     t.speciality,
     t.studies_time studiesTime,
     t.work_start_time workStartTime,
-    t.sex,
+    t.sex gender,
     t.graduation_time graduationTime,
     t.obtain_positional_titles_time obtainPositionalTitlesTime,
     t.administrative_position administrativePosition,
@@ -16,10 +17,10 @@ const selectTeacherAllSql = `
     t.phone,
     t.sos_person sosPerson,
     t.sos_person_phone sosPersonPhone,
-    t.is_class_teacher isClassTeacher,
-    t.is_party_member isPartyMember,
+    if(t.is_class_teacher = 1,'true','false') isClassTeacher,
+    if(t.is_party_member = 1,'true','false') isPartyMember,
     t.remark,
-    ts.name
+    ts.name subjectName
   from	teacher t
   join teach_subject ts
     on t.teach_subject_id = ts.id
