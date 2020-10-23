@@ -7,6 +7,7 @@ const {
   selectTeacherAll,
   selectTeacherOne,
   deleteTeacher,
+  updateTeahcher,
   selectTeachSubjectAll,
   selectTeacherAttachment,
   addTeacherAttachment,
@@ -20,6 +21,7 @@ router
   .get('/teacher', selectTeacherAll)
   .get(`/teacher/:id`, selectTeacherOne)
   .delete('/teacher/:id', deleteTeacher)
+  .put('/teacher/:id', updateTeahcher)
   .get(`/teachSubject`, selectTeachSubjectAll)
   .get(`/teacher/attachment/:id`, selectTeacherAttachment)
   .post(`/teacher/attachment/:id`, addTeacherAttachment)

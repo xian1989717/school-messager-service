@@ -29,11 +29,13 @@ async function selectTeacherAll (ctx) {
 }
 
 async function selectTeacherOne (ctx) {
-  ctx.body = await query(selectTeacherByIdSql, {
+  const { id } = ctx.params
+  const data = await query(selectTeacherByIdSql, {
     replacements: {
-      id: 1
+      id
     }
   })
+  ctx.body = data[0]
 }
 
 async function deleteTeacher (ctx) {
@@ -49,6 +51,20 @@ async function deleteTeacher (ctx) {
     }
   )
   if (res.length === 1) {
+    ctx.body = true
+  }
+}
+
+async function updateTeahcher (ctx) {
+  const { id } = ctx.params
+  const { body } = ctx.request
+  const res = await teacher.update(body, {
+    where: {
+      id,
+      isRemoved: false
+    }
+  })
+  if (res) {
     ctx.body = true
   }
 }
@@ -136,6 +152,7 @@ module.exports = {
   selectTeacherAll,
   selectTeacherOne,
   deleteTeacher,
+  updateTeahcher,
   selectTeachSubjectAll,
   selectTeacherAttachment,
   addTeacherAttachment,
