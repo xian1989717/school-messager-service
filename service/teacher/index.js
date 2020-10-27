@@ -98,7 +98,7 @@ async function addTeacherAttachment (ctx) {
         reject(err)
         return
       }
-      const { size, name, lastModifiedDate, path } = files.img
+      const { size, name, lastModifiedDate, path } = files.file
       const formatSize = (size / 1000).toFixed(2) + 'kb'
       fs.renameSync(path, './public/imgs/teacher/' + name)
       const res = await teacherAttachment.create({
@@ -147,6 +147,24 @@ async function downLoadTeacherAttachment (ctx) {
   await send(ctx, path)
 }
 
+async function deleteTeacherAttachment (ctx) {
+  const { teacherId, id } = ctx.params
+  const res = await teacherAttachment.update(
+    {
+      isRemoved: true
+    },
+    {
+      where: {
+        id,
+        teacherId
+      }
+    }
+  )
+  if (res.length === 1) {
+    ctx.body = true
+  }
+}
+
 module.exports = {
   addTeacher,
   selectTeacherAll,
@@ -157,5 +175,6 @@ module.exports = {
   selectTeacherAttachment,
   addTeacherAttachment,
   updateTeacherAttachment,
-  downLoadTeacherAttachment
+  downLoadTeacherAttachment,
+  deleteTeacherAttachment
 }

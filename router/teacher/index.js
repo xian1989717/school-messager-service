@@ -13,6 +13,7 @@ const {
   addTeacherAttachment,
   updateTeacherAttachment,
   downLoadTeacherAttachment,
+  deleteTeacherAttachment
 } = require('../../service/index.js')
 
 router
@@ -26,7 +27,8 @@ router
   .get(`/teacher/attachment/:id`, selectTeacherAttachment)
   .post(`/teacher/attachment/:id`, addTeacherAttachment)
   .put('/teacher/:teacherId/attachment/:id', updateTeacherAttachment)
-  .post('/teacher/attachment/download/:id', downLoadTeacherAttachment)
+  .get('/teacher/:teacherId/attachment/:id/download', downLoadTeacherAttachment)
+  .delete('/teacher/:teacherId/attachment/:id', deleteTeacherAttachment)
 
 module.exports = {
   teacherRouter: router
