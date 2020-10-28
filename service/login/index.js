@@ -8,16 +8,13 @@ async function randerHtml (ctx) {
 }
 
 async function login (ctx) {
-  ctx.session.messagerInfo = ctx.request.body
+  if (!ctx.session.messagerInfo) {
+    ctx.session.messagerInfo = ctx.request.body
+  }
   ctx.body = true
 }
 
-async function redirect (ctx) {
-  ctx.response.redirect('/login')
-}
-
 module.exports = {
-  redirect,
   login,
   randerHtml
 }

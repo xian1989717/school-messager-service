@@ -10,13 +10,14 @@ const {
   teacherRouter,
   loginRouter
 } = require('./router/index')
+const { nextTick } = require('process')
 
 const app = new Koa()
 
 app.keys = ['some secret hurr']
 const CONFIG = {
   key: 'koa:sess',   //cookie key (default is koa:sess)
-  maxAge: 60*30,  // cookie的过期时间 maxAge in ms (default is 1 days)
+  maxAge: 1800,  // cookie的过期时间 maxAge in ms (default is 1 days)
   overwrite: true,  //是否可以overwrite    (默认default true)
   httpOnly: true, //cookie是否只有服务器端可以访问 httpOnly or not (default true)
   signed: true,   //签名默认true
@@ -33,14 +34,21 @@ app.use(compress({ threshold: 1024 }))
 app.use(cors())
 // 解析body
 app.use(bodyParser())
-// 路由
-app
-  .use(teacherRouter.routes())
-  .use(teacherRouter.allowedMethods())
 
+app.use((ctx, next) => {
+  if (ctx.request.path === '/') {
+    ctx.response.redirect('/login')
+  }
+  next()
+})
+// 路由
 app
   .use(loginRouter.routes())
   .use(loginRouter.allowedMethods())
+
+app
+  .use(teacherRouter.routes())
+  .use(teacherRouter.allowedMethods())
 
 app.listen(3000, () => {
   console.log('service is running!post is 3000')

@@ -120,9 +120,6 @@ const teacher = ormDb.define(
       field: 'is_removed',
       defaultValue: false
     }
-  },
-  {
-    freezeTableName: true
   }
 )
 

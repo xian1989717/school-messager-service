@@ -43,3 +43,10 @@ create table teacher_attachment(
 alter table teacher_attachment add column attachment_key text(50);
 alter table teacher_attachment modify name text(50);
 
+create table user(
+  id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
+  account                           text(20)                                  not null                                          comment '账号名',
+  password                          text(20)                                  not null                                          comment '密码',
+  remark                            text                                      null                                              comment '备注',
+  is_removed                        boolean                                   not null      default false                       comment '删除标记'
+) comment = '用户表';
