@@ -10,10 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^9.4.0",
+    "ejs": "^3.1.5",
     "formidable": "^1.2.2",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-send": "^5.0.1",
+    "koa-session": "^6.1.0",
+    "koa-views": "^6.3.1",
     "koa2-cors": "^2.0.6",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
