@@ -1,19 +1,29 @@
 const { user } = require('../../model/index.js')
-
+const { httpUrl } = require('../../const.js')
 async function randerHtml (ctx) {
   const { userinfo } = ctx.session
 
   if (userinfo && userinfo.account && userinfo.password) {
-    ctx.redirect('http://localhost:8080')
+    ctx.redirect(httpUrl)
   }
   await ctx.render('login')
 }
 
 async function login (ctx) {
   if (!ctx.session.userinfo) {
-    ctx.session.userinfo = ctx.request.body
+    const { account, password } = ctx.request.body
+    const res = await user.findOne({
+      where: {
+        account,
+        password,
+        isRemoved: false
+      }
+    })
+    if (res.length) {
+      ctx.session.userinfo = ctx.request.body
+    }
   }
-  ctx.redirect('http://localhost:8080')
+  ctx.redirect(httpUrl)
 }
 
 async function registerHtml (ctx) {
