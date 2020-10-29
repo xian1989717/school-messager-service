@@ -10,7 +10,8 @@ const user = ormDb.define(
     },
     account: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.TEXT,

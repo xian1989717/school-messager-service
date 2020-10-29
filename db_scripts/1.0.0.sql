@@ -45,8 +45,8 @@ alter table teacher_attachment modify name text(50);
 
 create table user(
   id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
-  account                           text(20)                                  not null                                          comment '账号名',
-  password                          text(20)                                  not null                                          comment '密码',
+  account                           varchar(20)                               not null      UNIQUE                              comment '账号名',
+  password                          varchar(20)                               not null                                          comment '密码',
   remark                            text                                      null                                              comment '备注',
   is_removed                        boolean                                   not null      default false                       comment '删除标记'
 ) comment = '用户表';

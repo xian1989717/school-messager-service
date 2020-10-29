@@ -30,6 +30,4 @@ router
   .get('/teacher/:teacherId/attachment/:id/download', downLoadTeacherAttachment)
   .delete('/teacher/:teacherId/attachment/:id', deleteTeacherAttachment)
 
-module.exports = {
-  teacherRouter: router
-}
+module.exports = router
