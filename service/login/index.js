@@ -19,8 +19,12 @@ async function login (ctx) {
         isRemoved: false
       }
     })
-    if (res.length) {
+    if (res) {
       ctx.session.userinfo = ctx.request.body
+    } else {
+      ctx.response.type = 'html'
+      ctx.response.body = '<script>alert("账号或者密码错误，请重试！");window.location.href="/login"</script>'
+      return
     }
   }
   ctx.redirect(httpUrl)

@@ -80,7 +80,7 @@ async function selectTeachSubjectAll (ctx) {
 
 async function selectTeacherAttachment (ctx) {
   ctx.body = await teacherAttachment.findAll({
-    attributes: ['id', 'name', 'size', 'uploadTime', 'remark'],
+    attributes: ['id', 'name', 'size', 'uploadTime', 'remark', 'attachmentKey'],
     where: {
       isRemoved: false,
       teacherId: ctx.params.id
@@ -149,6 +149,7 @@ async function downLoadTeacherAttachment (ctx) {
 
 async function deleteTeacherAttachment (ctx) {
   const { teacherId, id } = ctx.params
+  const { attachmentKey } = ctx.query
   const res = await teacherAttachment.update(
     {
       isRemoved: true
@@ -161,6 +162,7 @@ async function deleteTeacherAttachment (ctx) {
     }
   )
   if (res.length === 1) {
+    fs.unlinkSync(`public/imgs/teacher/${attachmentKey}`)
     ctx.body = true
   }
 }

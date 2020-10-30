@@ -1,4 +1,4 @@
-const httpUrl = 'http:localhost:8080'
+const httpUrl = 'http://localhost:8080'
 
 module.exports = {
   httpUrl
