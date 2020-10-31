@@ -26,7 +26,7 @@ router
   .get(`/teachSubject`, selectTeachSubjectAll)
   .get(`/teacher/attachment/:id`, selectTeacherAttachment)
   .post(`/teacher/attachment/:id`, addTeacherAttachment)
-  .put('/teacher/:teacherId/attachment/:id', updateTeacherAttachment)
+  .patch('/teacher/:teacherId/attachment/:id', updateTeacherAttachment)
   .get('/teacher/:teacherId/attachment/:id/download', downLoadTeacherAttachment)
   .delete('/teacher/:teacherId/attachment/:id', deleteTeacherAttachment)
 
