@@ -50,3 +50,28 @@ create table user(
   remark                            text                                      null                                              comment '备注',
   is_removed                        boolean                                   not null      default false                       comment '删除标记'
 ) comment = '用户表';
+
+create table students(
+  id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
+  student_no                        char(20)                                  not null      UNIQUE                              comment '学号',
+  name                              char(20)                                  not null                                          comment '名称',
+  birthday                          date                                      not null                                          comment '出生日期',
+  nation                            char(20)                                  not null                                          comment '民族',
+  sex                               ENUM('male','female')                     not null      default 'male'                      comment '性别',
+  contact_phone                     bigint(11)                                not null                                          comment '联系电话',
+  contacts                          char(20)                                  not null                                          comment '联系人',
+  remark                            varchar(50)                               null                                              comment '备注',
+  is_removed                        boolean                                   not null      default false                       comment '删除标记'
+) comment = '学生表';
+
+create table address(
+  id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
+  relation_id                       int                                       not null                                          comment 'guanlianId',
+  type                              enum('student','teacher')                 not null                                          comment '类型',
+  habitation_type                   enum('habitation','HouseholdRegister')    not null                                          comment '居住地/户籍',
+  province                          char(20)                                  not null                                          comment '省',
+  city                              char(20)                                  not null                                          comment '市',
+  district                          char(20)                                  not null                                          comment '区',
+  remark                            varchar(50)                               null                                              comment '备注',
+  is_removed                        boolean                                   not null      default false                       comment '删除标记'                      
+) comment = '地址表';
