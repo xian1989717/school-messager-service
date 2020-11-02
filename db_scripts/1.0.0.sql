@@ -64,14 +64,46 @@ create table students(
   is_removed                        boolean                                   not null      default false                       comment '删除标记'
 ) comment = '学生表';
 
+create table students_attachment(
+  id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
+  student_id                        int                                       not null                                          comment 'teacher表id',
+  name                              text(20)                                  not null                                          comment '名称',
+  size                              text(20)                                  not null                                          comment '大小',
+  upload_time                       TIMESTAMP                                 not null                                          comment '上传时间',
+  remark                            text                                      null                                              comment '备注',
+  is_removed                        boolean                                   not null      default false                       comment '删除标记'                       
+) comment = '学生附件表';
+
+create table students_achievement(                                                                                               
+  id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
+  student_id                        int                                       not null                                          comment 'teacher表id',
+  subject_id                        int                                       not null                                          comment 'teach_subject表id',
+  test_scores                       int                                       not null                                          comment '考试成绩',
+  grade                             int                                       not null                                          comment '年级',
+  semester                          enum('1','2')                             not null      default '1'                         comment '学期',
+  is_test                           boolean                                   not null      default false                       comment '是否是测试成绩',
+  remark                            text                                      null                                              comment '备注',
+  is_removed                        boolean                                   not null      default false                       comment '删除标记'          
+) comment = '学生成绩表';
+
 create table address(
   id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
-  relation_id                       int                                       not null                                          comment 'guanlianId',
-  type                              enum('student','teacher')                 not null                                          comment '类型',
-  habitation_type                   enum('habitation','HouseholdRegister')    not null                                          comment '居住地/户籍',
+  relation_id                       int                                       not null                                          comment '关联Id(teacher表主键Id/students表主键Id)',
+  type                              enum('student','teacher')                 not null                                          comment '类型(教师/学生)',
+  habitation_type                   enum('habitation','HouseholdRegister')    not null                                          comment '地址类型(居住地/户籍)',
   province                          char(20)                                  not null                                          comment '省',
   city                              char(20)                                  not null                                          comment '市',
   district                          char(20)                                  not null                                          comment '区',
   remark                            varchar(50)                               null                                              comment '备注',
   is_removed                        boolean                                   not null      default false                       comment '删除标记'                      
-) comment = '地址表';
+) comment = '联系地址表';
+
+CREATE TABLE IF NOT EXISTS area(
+  id                                int(20)                                   not null      AUTO_INCREMENT    primary key       comment '地区Id/主键Id',
+  area_code                         varchar(50)                               not null                                          comment '地区编码',
+  area_name                         varchar(20)                               not null                                          comment '地区名',
+  level                             tinyint(4)                                not null      DEFAULT '-1'                        comment '地区级别(1:省份province,2:市city,3:区县district,4:街道street)',
+  city_code                         varchar(50)                               null          DEFAULT NULL                        comment '城市编码',
+  center                            varchar(50)                               null          DEFAULT NULL                        comment '城市中心点(即：经纬度坐标)',
+  parent_id                         int(20)                                   not null      DEFAULT '-1'                        comment '地区父节点'
+) comment='地区码表';
