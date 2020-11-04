@@ -76,9 +76,10 @@ create table students_attachment(
 
 create table students_achievement(                                                                                               
   id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
-  student_id                        int                                       not null                                          comment 'teacher表id',
+  student_id                        int                                       not null                                          comment 'students表Id',
   subject_id                        int                                       not null                                          comment 'teach_subject表id',
   test_scores                       int                                       not null                                          comment '考试成绩',
+  total_score                       int                                       not null                                          comment '总分',
   grade                             int                                       not null                                          comment '年级',
   semester                          enum('1','2')                             not null      default '1'                         comment '学期',
   is_test                           boolean                                   not null      default false                       comment '是否是测试成绩',
