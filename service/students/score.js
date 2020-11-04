@@ -43,7 +43,31 @@ async function addScore (ctx) {
   }
 }
 
+async function deleteScore (ctx) {
+  const { id, studentId } = ctx.params
+  const res = await studentsAchievement.update(
+    { isRemoved: true },
+    { where: { id, studentId } }
+  )
+  if (res) {
+    ctx.body = true
+  }
+}
+async function updateScore (ctx) {
+  const { id, studentId } = ctx.params
+  const { body } = ctx.request
+  const res = await studentsAchievement.update(
+    body,
+    { where: { id, studentId } }
+  )
+  if (res) {
+    ctx.body = true
+  }
+}
+
 module.exports = {
   addScore,
-  getAllScore
+  getAllScore,
+  deleteScore,
+  updateScore
 }

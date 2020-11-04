@@ -7,16 +7,22 @@ const {
   addStudent,
   deleteStudent,
   updateStudent,
+  getStudentById,
   getAllScore,
-  addScore
+  addScore,
+  deleteScore,
+  updateScore
 } = require('../../service/students')
 
 router
   .get('/students', getAllStudents)
   .post('/students', addStudent)
   .delete('/students/:id', deleteStudent)
-  .patch('/students/:id', updateStudent)
+  .put('/students/:id', updateStudent)
+  .get('/students/:id', getStudentById)
   .get('/students/:studentId/score', getAllScore)
   .post('/students/:studentId/score', addScore)
+  .delete('/students/:studentId/score/:id', deleteScore)
+  .put('/students/:studentId/score/:id', updateScore)
 
 module.exports = router

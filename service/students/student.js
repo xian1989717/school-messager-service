@@ -1,8 +1,20 @@
-const { ormDb } = require('../../sequelize/index')
+const {
+  ormDb
+} = require('../../sequelize/index')
+const {
+  students,
+  address,
+  studentsAchievement
+} = require('../../model/index.js')
+const {
+  query
+} = require('../../mysql.config')
+const {
+  selectStudentsSql,
+  selectStudentSql
+} = require('../../sql/student')
 
-const { students, address, studentsAchievement } = require('../../model/index.js')
-const { query } = require('../../mysql.config')
-const { selectStudentsSql } = require('../../sql/student')
+const student = require('../../model/student')
 
 async function getAllStudents (ctx) {
   ctx.body = await query(selectStudentsSql)
@@ -113,9 +125,18 @@ async function updateStudent (ctx) {
   } catch { }
 }
 
+async function getStudentById (ctx) {
+  const { id } = ctx.params
+  const res = await query(selectStudentSql, { replacements: { id } })
+  if (res) {
+    ctx.body = res
+  }
+}
+
 module.exports = {
   getAllStudents,
   addStudent,
   deleteStudent,
-  updateStudent
+  updateStudent,
+  getStudentById
 }
