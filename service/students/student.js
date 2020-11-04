@@ -1,6 +1,6 @@
 const { ormDb } = require('../../sequelize/index')
 
-const { students, address } = require('../../model/index.js')
+const { students, address, studentsAchievement } = require('../../model/index.js')
 const { query } = require('../../mysql.config')
 const { selectStudentsSql } = require('../../sql/student')
 
@@ -56,7 +56,66 @@ async function addStudent (ctx) {
   })
 }
 
+async function deleteStudent (ctx) {
+  const { id } = ctx.params
+  try {
+    await ormDb.transaction(async (t) => {
+      await students.update(
+        { isRemoved: true },
+        { where: { id } }
+      )
+      await address.update(
+        { isRemoved: true }, zhengs
+        { where: { relationId: id } }
+      )
+      await studentsAchievement.update(
+        { isRemoved: true },
+        { where: { studentId: id } }
+      )
+    })
+    ctx.body = true
+  } catch { }
+}
+
+async function updateStudent (ctx) {
+  const { id } = ctx.params
+  const {
+    studentNo,
+    birthday,
+    contactPhone,
+    contacts,
+    name,
+    sex,
+    nation,
+    detailedAddress,
+    remark,
+    district,
+    city,
+    province,
+    type,
+    habitationType
+  } = ctx.request.body
+
+  const studentData = { studentNo, birthday, contactPhone, contacts, name, nation, sex, remark }
+  const addressData = { detailedAddress, district, city, province, type, habitationType }
+  try {
+    ormDb.transaction(async (t) => {
+      await students.update(
+        studentData,
+        { where: { id, isRemoved: false } }
+      )
+      await address.update(
+        addressData,
+        { where: { relationId: id, isRemoved: false } }
+      )
+    })
+    ctx.body = true
+  } catch { }
+}
+
 module.exports = {
   getAllStudents,
-  addStudent
+  addStudent,
+  deleteStudent,
+  updateStudent
 }

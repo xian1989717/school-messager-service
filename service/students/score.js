@@ -3,7 +3,7 @@ const { ormDb } = require('../../sequelize/index')
 const { studentsAchievement } = require('../../model/index.js')
 
 async function getAllScore (ctx) {
-  const { id: studentId } = ctx.params
+  const { studentId } = ctx.params
   ctx.body = await studentsAchievement.findAll(
     {
       attributes: [
@@ -26,7 +26,7 @@ async function getAllScore (ctx) {
 }
 
 async function addScore (ctx) {
-  const { id: studentId } = ctx.params
+  const { studentId } = ctx.params
   const { body } = ctx.request
   const res = await studentsAchievement.create(
     Object.assign(

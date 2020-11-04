@@ -5,6 +5,8 @@ const router = new Router()
 const {
   getAllStudents,
   addStudent,
+  deleteStudent,
+  updateStudent,
   getAllScore,
   addScore
 } = require('../../service/students')
@@ -12,7 +14,9 @@ const {
 router
   .get('/students', getAllStudents)
   .post('/students', addStudent)
-  .get('/students/:id/score', getAllScore)
-  .post('/students/:id/score', addScore)
+  .delete('/students/:id', deleteStudent)
+  .patch('/students/:id', updateStudent)
+  .get('/students/:studentId/score', getAllScore)
+  .post('/students/:studentId/score', addScore)
 
 module.exports = router
