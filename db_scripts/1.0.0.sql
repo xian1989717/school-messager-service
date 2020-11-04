@@ -94,7 +94,7 @@ create table address(
   province                          char(20)                                  not null                                          comment '省',
   city                              char(20)                                  not null                                          comment '市',
   district                          char(20)                                  not null                                          comment '区',
-  detailedAddress                   varchar(50)                               not null                                          comment '详细地址',                
+  detailed_address                  varchar(50)                               not null                                          comment '详细地址',                
   remark                            varchar(50)                               null                                              comment '备注',
   is_removed                        boolean                                   not null      default false                       comment '删除标记'                      
 ) comment = '联系地址表';

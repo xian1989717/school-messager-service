@@ -50,7 +50,8 @@ async function addStudent (ctx) {
     )
 
     if (addressResult) {
-      return true
+      ctx.body = true
+      return
     }
   })
 }

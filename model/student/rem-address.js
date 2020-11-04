@@ -19,11 +19,11 @@ const address = ormDb.define(
       allowNull: false,
       values: ['student', 'teacher']
     },
-    habiationType: {
+    habitationType: {
       type: DataTypes.ENUM,
       allowNull: false,
       values: ['habitation','HouseholdRegister'],
-      field: 'habiation_type'
+      field: 'habitation_type'
     },
     province: {
       type: DataTypes.CHAR,
