@@ -1,9 +1,11 @@
 const { ormDb } = require('../../sequelize/index')
 
 const { students, address } = require('../../model/index.js')
+const { query } = require('../../mysql.config')
+const { selectStudentsSql } = require('../../sql/student')
 
 async function getAllStudents (ctx) {
-
+  ctx.body = await query(selectStudentsSql)
 }
 
 async function addStudent (ctx) {
@@ -27,7 +29,6 @@ async function addStudent (ctx) {
   const addressData = { detailedAddress, district, city, province, type, habitationType }
 
   const res = await ormDb.transaction(async (t) => {
-
     const data = await students.create(
       Object.assign(
         studentData,
@@ -37,7 +38,6 @@ async function addStudent (ctx) {
       ),
       { transaction: t }
     )
-
     const addressResult = await address.create(
       Object.assign(
         addressData,
