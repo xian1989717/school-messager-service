@@ -11,7 +11,8 @@ const {
   getAllScore,
   addScore,
   deleteScore,
-  updateScore
+  updateScore,
+  getChart
 } = require('../../service/students')
 
 router
@@ -24,5 +25,6 @@ router
   .post('/students/:studentId/score', addScore)
   .delete('/students/:studentId/score/:id', deleteScore)
   .put('/students/:studentId/score/:id', updateScore)
+  .get('/students/:studentId/chart', getChart)
 
 module.exports = router

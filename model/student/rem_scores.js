@@ -35,6 +35,11 @@ const studentsAchievement = ormDb.define(
       allowNull: false,
       defaultValue: 1
     },
+    class: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defalutValue: 1
+    },
     semester: {
       type: DataTypes.ENUM,
       allowNull: false,

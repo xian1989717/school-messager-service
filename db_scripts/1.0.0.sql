@@ -64,6 +64,9 @@ create table students(
   is_removed                        boolean                                   not null      default false                       comment '删除标记'
 ) comment = '学生表';
 
+alter table students add column grade int;
+alter table students add column class int;
+
 create table students_attachment(
   id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',
   student_id                        int                                       not null                                          comment 'teacher表id',
@@ -86,6 +89,8 @@ create table students_achievement(
   remark                            text                                      null                                              comment '备注',
   is_removed                        boolean                                   not null      default false                       comment '删除标记'          
 ) comment = '学生成绩表';
+
+alter table students_achievement add column class int;
 
 create table address(
   id                                int                                       not null      AUTO_INCREMENT   	primary key   		comment '主键Id',

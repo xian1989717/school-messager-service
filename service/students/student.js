@@ -77,7 +77,7 @@ async function deleteStudent (ctx) {
         { where: { id } }
       )
       await address.update(
-        { isRemoved: true }, zhengs
+        { isRemoved: true },
         { where: { relationId: id } }
       )
       await studentsAchievement.update(
